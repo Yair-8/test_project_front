@@ -43,11 +43,30 @@
     </div>
     <hr />
     <!-- Посилання для додавання нового користувача -->
+    <div id="add-user-link"></div>
+
     <a href="./register.html">Додати користувача</a>
 
     <script>
       // Функція, що виконується при завантаженні сторінки
       window.onload = async function () {
+        // Function to check if the user is admin and authenticated
+        const showAddUserLink = () => {
+          const addUserLink = document.getElementById("add-user-link");
+
+          // Check if user is admin and authenticated
+          if (
+            data?.user?.username === "Iryna" &&
+            RequestManager.isAuthenticated()
+          ) {
+            const link = document.createElement("a");
+            link.href = "./register.html";
+            link.className = "add-user";
+            link.textContent = "Додати користувача";
+            addProductLink.appendChild(link);
+          }
+        };
+
         // Функція для видалення користувача за ідентифікатором
         async function deleteFunction(id) {
           const data = await UsersApiManager.deleteUser(id);
@@ -80,8 +99,12 @@
               const table = ListDataManager.createTableFromList(
                 usersList,
                 fields,
-                createLinkFunction,
-                deleteFunction
+                data?.user?.username === "Iryna" &&
+                  RequestManager.isAuthenticated() &&
+                  createLinkFunction,
+                data?.user?.username === "Iryna" &&
+                  RequestManager.isAuthenticated() &&
+                  deleteFunction
               );
 
               tableContainer.append(table);
@@ -95,7 +118,7 @@
             loadingSpinner.style.display = "none";
           }
         }
-
+        showAddUserLink();
         // Виклик функції для отримання та відображення даних
         fetchDataAndDisplay();
       };
