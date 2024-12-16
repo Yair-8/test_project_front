@@ -1,8 +1,7 @@
 class RequestManager {
   // Базовий URL для API запитів
   //   static apiBase = "http://localhost:3000/api/v1";
-  static apiBase =
-    "https://dashboard.render.com/web/srv-ctfpr9ogph6c73fohp6g/deploys/dep-ctfpra0gph6c73fohp9g";
+  static apiBase = "https://test-project-back.onrender.com/api/v1";
 
   // Метод для отримання повного маршруту до сервера
   static getServerRoute(path) {
